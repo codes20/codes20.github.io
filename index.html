@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Monaco Editor Demo</title>
+  <title>Codes20</title>
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css"/>
-
 </head>
 <body>
   
@@ -20,7 +19,7 @@
 
       <nav>
         <a href="#" id="runbtn">RUN</a>
-        <a href="#">SAVE</a>
+        <a href="#" onclick="save()">SAVE</a>
         
         <a href="#">Home</a>
         <a href="#" class="selected">Codes</a>
@@ -42,47 +41,6 @@
 </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
 
-  <script>
-    let editor,code;
-    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs' }});
-    
-    require(["vs/editor/editor.main"], function() {
-       editor = monaco.editor.create(document.getElementById('editor'), {
-        value: [
-          '<!DOCTYPE html>',
-          '<html>',
-          '  <head>',
-          '    <title>Monaco Editor</title>',  
-          '  </head>',
-          '  <body>',
-          '    <p>Hello World!</p>',
-          '  </body>',
-          '</html>'
-        ].join('\n'),
-        language: 'html',
-        theme: 'vs-dark'
-      });
-      (localStorage.code)?editor.setValue(localStorage.code):true;
-      document.getElementById('preview').srcdoc = editor.getValue();
-      editor.onDidChangeModelContent(() => {
-       console.log('Value changed!',code);
-        code = editor.getValue();
-        localStorage.code = code ;
-        document.getElementById('preview').srcdoc = code;
-        // do something with updated code
-      });
-    });
-
-
-    const runbtn = document.getElementById('runbtn');
-
-    runbtn.addEventListener('click', () => {
-      const code = editor.getValue();
-      console.log(code);
-    });
-
-    
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
