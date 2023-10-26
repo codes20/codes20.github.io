@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+}
+
+.editor, 
+.preview {
+  flex: 1; 
+  padding: 10px;
+}
+
+.editor {
+  background: #1E1E1E;
+  color: #D4D4D4;
+}

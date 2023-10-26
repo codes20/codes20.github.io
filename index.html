@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Monaco Editor Demo</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css" rel="stylesheet" />
+
+</head>
+<body>
+  <style>
+    * {
+      padding:0;
+      margin:0;
+    }
+    .flex {
+      display:flex;
+    }
+  </style>
+  <header>
+    <span><h1>Codes20</h1></span>
+    <span>
+      <span>Title of the Codes20</span> | <a href="https://github.com/Codes20/">Github</a>
+    </span>
+  </header>
+  </header>
+<div class="flex">
+  <div id="editor" style="width: 50%; height: 90vh;"></div>
+  <div id="previewer" style="width: 50%; height: 90vh;">
+    <iframe id="preview" frameborder="2px" height="100%" width="100%" srcdoc="Hii"></iframe>
+  </div>
+</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
+
+  <script>
+    let editor,code;
+    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs' }});
+    
+    require(["vs/editor/editor.main"], function() {
+       editor = monaco.editor.create(document.getElementById('editor'), {
+        value: [
+          '<!DOCTYPE html>',
+          '<html>',
+          '  <head>',
+          '    <title>Monaco Editor</title>',  
+          '  </head>',
+          '  <body>',
+          '    <p>Hello World!</p>',
+          '  </body>',
+          '</html>'
+        ].join('\n'),
+        language: 'html',
+        theme: 'vs-dark'
+      });
+      
+      editor.onDidChangeModelContent(() => {
+       console.log('Value changed!',code);
+        code = editor.getValue();
+        document.getElementById('preview').srcdoc = code;
+        // do something with updated code
+      });
+    });
+  </script>
+
+</body>
+</html>
