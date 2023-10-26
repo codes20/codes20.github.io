@@ -4,29 +4,40 @@
   <title>Monaco Editor Demo</title>
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css"/>
 
 </head>
 <body>
-  <style>
-    * {
-      padding:0;
-      margin:0;
-    }
-    .flex {
-      display:flex;
-    }
-  </style>
-  <header>
-    <span><h1>Codes20</h1></span>
-    <span>
-      <span>Title of the Codes20</span> | <a href="https://github.com/Codes20/">Github</a>
-    </span>
+  
+
+    <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+
+  <header class="header-fixed">
+
+    <div class="header-limiter">
+
+      <h1><a href="#">Codes<span>20</span></a></h1>
+
+      <nav>
+        <a href="#" id="runbtn">RUN</a>
+        <a href="#">SAVE</a>
+        
+        <a href="#">Home</a>
+        <a href="#" class="selected">Codes</a>
+        
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+
+    </div>
+
   </header>
+
   </header>
 <div class="flex">
   <div id="editor" style="width: 50%; height: 90vh;"></div>
   <div id="previewer" style="width: 50%; height: 90vh;">
-    <iframe id="preview" frameborder="2px" height="100%" width="100%" srcdoc="Hii"></iframe>
+    <iframe id="preview" frameborder="2px" height="100%" width="100%" srcdoc=""></iframe>
   </div>
 </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
@@ -51,14 +62,26 @@
         language: 'html',
         theme: 'vs-dark'
       });
-      
+      (localStorage.code)?editor.setValue(localStorage.code):true;
+      document.getElementById('preview').srcdoc = editor.getValue();
       editor.onDidChangeModelContent(() => {
        console.log('Value changed!',code);
         code = editor.getValue();
+        localStorage.code = code ;
         document.getElementById('preview').srcdoc = code;
         // do something with updated code
       });
     });
+
+
+    const runbtn = document.getElementById('runbtn');
+
+    runbtn.addEventListener('click', () => {
+      const code = editor.getValue();
+      console.log(code);
+    });
+
+    
   </script>
 
 </body>
