@@ -63,3 +63,61 @@ if(id){
                                  
 
 
+
+//--------------------
+
+// Replace with your GitHub Personal Access Token
+const accessToken = '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';
+
+document.getElementById('save').addEventListener('click', () => {
+    // Gist data
+    const gistData = {
+        description: document.getElementById('title').value || 'Codes20 Gist',
+        public: true, // Set to true for public, false for private
+        files: {
+            'index.html': {
+                content: editor.getValue()
+            },
+            'codes20.txt': {
+                content: '...'
+            },
+            'poster.png': {
+                content: '...'
+            }
+        }
+    };
+
+    // GitHub API endpoint for creating Gists
+    const apiUrl = 'https://api.github.com/gists';
+
+    // Set up the fetch request
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Authorization': `token ${accessToken}`,
+            'User-Agent': 'Codes20', // Replace with your app name
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(gistData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.id) {
+            // Gist created successfully
+            const gistId = data.id;
+            const gistUrl = data.html_url;
+            console.log(`Gist created successfully. Gist ID: ${gistId}, Gist URL: ${gistUrl}`);
+            
+            // Open the Gist URL in a new window
+            window.open(gistUrl, '_blank');
+            window.open('https://codes20githubio.sh20raj.repl.co/??id='+gistId, '_blank');
+        } else {
+            // Failed to create Gist
+            console.error('Failed to create Gist.');
+            console.log(data);
+        }
+    })
+    .catch(error => {
+        console.error('An error occurred:', error);
+    });
+});

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODES20 - GISTS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .card {
+            background-color: #111;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        .card-title {
+            color: #17a2b8;
+        }
+
+        .card-text {
+            color: #ccc;
+        }
+
+        .btn-primary {
+            background-color: #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">---SH20RAJ---</h1>
+        <div class="row" id="gistList"></div>
+    </div>
+
+    <script>
+        const username = 'sh20raj'; // Replace with the GitHub username
+        const apiUrl = `https://api.github.com/users/${username}/gists`;
+
+        function fetchGistsWithCodes20() {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(gists => {
+                    const filteredGists = gists.filter(gist => {
+                        return Object.keys(gist.files).some(fileName => fileName === 'codes20.txt');
+                    });
+
+                    displayGists(filteredGists);
+                })
+                .catch(error => {
+                    console.error('An error occurred:', error);
+                });
+        }
+
+        function displayGists(gists) {
+            const gistList = document.getElementById('gistList');
+
+            gists.forEach(gist => {
+                const description = gist.description || 'No description';
+                const date = calculateRelativeTime(gist.updated_at);
+                const username = gist.owner.login;
+
+                const postHTML = `
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">${description}</h5>
+                                <p class="card-text">Updated ${date}</p>
+                                <p class="card-text">GitHub Username: ${username}</p>
+                                <a href="https://codes20githubio.sh20raj.repl.co/?id=${gist.id}" class="btn btn-primary">Read more</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                gistList.innerHTML += postHTML;
+            });
+        }
+
+        function calculateRelativeTime(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diff = now - date;
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+
+            if (days > 1) {
+                return `${days} days ago`;
+            } else if (hours > 1) {
+                return `${hours} hours ago`;
+            } else if (minutes > 1) {
+                return `${minutes} minutes ago`;
+            } else {
+                return `${seconds} seconds ago`;
+            }
+        }
+
+        fetchGistsWithCodes20();
+    </script>
+</body>
+</html>

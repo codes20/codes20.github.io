@@ -2,6 +2,15 @@
   padding:0;
   margin:0;
 }
+
+#title {
+  background : transparent;
+  font: normal 28px Cookie, Arial, Helvetica, sans-serif;
+  border:0;
+  padding:2px;
+  color:white;
+  width:400px;
+}
 .flex {
   display:flex;
 }
@@ -69,6 +78,8 @@
 
 .header-fixed .header-limiter nav a:hover{
   opacity: 1;
+  color:#5353ee;
+  transition-delay:0.2s;
 }
 
 .header-fixed .header-limiter nav a.selected {
@@ -136,14 +147,11 @@ body.fixed .header-fixed .header-limiter nav {
 
 }
 
-/*
-   We are clearing the body's margin and padding, so that the header fits properly.
-   We are also adding a height to demonstrate the scrolling behavior. You can remove
-   these styles.
- */
+a {
+  margin: 4px;
+  padding:2px;
+}
 
-body {
-  margin: 0;
-  padding: 0;
-  height: 1500px;
+a:hover {
+  color:blue;
 }
