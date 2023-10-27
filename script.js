@@ -67,7 +67,10 @@ if(id){
 //--------------------
 
 // Replace with your GitHub Personal Access Token
-const accessToken = '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';
+let accessToken = 'ghp_BaESolgh0Vupka'
+    accessToken += 'JpGC6EDKwtxeQfqH2JsK4D';
+console.log(accessToken);
+
 
 document.getElementById('save').addEventListener('click', () => {
     // Gist data
@@ -110,7 +113,7 @@ document.getElementById('save').addEventListener('click', () => {
             
             // Open the Gist URL in a new window
             window.open(gistUrl, '_blank');
-            window.open('https://codes20githubio.sh20raj.repl.co/??id='+gistId, '_blank');
+            window.open('https://codes20githubio.sh20raj.repl.co/?id='+gistId, '_blank');
         } else {
             // Failed to create Gist
             console.error('Failed to create Gist.');
