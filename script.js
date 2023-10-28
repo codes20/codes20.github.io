@@ -130,13 +130,13 @@ if(id){
         document.title = gistInfo.description;
         document.getElementById('title').value = gistInfo.description;
         editor.setValue(gistInfo.indexHtmlContent);
-        
+
       } else {
           console.log('Unable to retrieve Gist information.');
       }
   });
 }
-                                 
+
 
 
 
@@ -151,7 +151,7 @@ if(localStorage.accessToken){
   localStorage.accessToken = prompt("Enter Your GitHub Access Token :- \n We will not save it", "ForSavingGists");
   accessToken = localStorage.accessToken ;
 }
-  
+
 }
 
 
