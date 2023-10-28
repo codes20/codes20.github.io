@@ -148,8 +148,8 @@ let refreshToken = () => {
 if(localStorage.accessToken){
   accessToken = localStorage.accessToken;
 } else {
-  localStorage.accessToken = prompt("Enter Your GitHub Access Token :- \n We will not save it", "ForSavingGists");
-  accessToken = localStorage.accessToken ;
+  accessToken = prompt("Enter Your GitHub Access Token :- \n We will not save it", "ForSavingGists");
+  if(accessToken != null) localStorage.accessToken = accessToken ;
 }
 
 }
