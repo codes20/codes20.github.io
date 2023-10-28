@@ -9,6 +9,23 @@ function getParameterByName( name ){
   else
     return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+function extractIdFromUrl(url) {
+    // Regular expression to match the ID pattern
+    const idPattern = /[?&]id=([a-fA-F0-9]+)|\/([a-fA-F0-9]+)/;
+
+    // Use the regular expression to search for the ID in the URL
+    const match = url.match(idPattern);
+
+    // Check if a match is found
+    if (match && match.length > 1) {
+        const id = match[1] || match[2];
+        return id;
+    }
+
+    // Return null if no match is found
+    return null;
+}
+let CodeId = getParameterByName("id");
 let editor,code;
   require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs' }});
 
@@ -100,7 +117,7 @@ function getGistData(gistId) {
 
 
 // Get the value of the "id" parameter from the URL
-const id = urlParams.get("id");
+const id = CodeId;
 console.log(id);
 if(id){
   getGistData(id)
@@ -181,7 +198,7 @@ let savegist = () =>
 
               // Open the Gist URL in a new window
               window.open(gistUrl, '_blank');
-              window.open('https://codes20githubio.sh20raj.repl.co/?id='+gistId, '_blank');
+              window.open(location.origin+'/?id='+gistId, '_blank');
           } else {
               // Failed to create Gist
               console.error('Failed to create Gist.');
@@ -248,7 +265,7 @@ let updategist = (gistId) => {
 
 document.getElementById('update').addEventListener('click', () => {
     // Get the gist ID from the URL parameter (you need to implement this)
-    const gistId = urlParams.get('id');
+    const gistId = CodeId;
 
     if (gistId) {
         updategist(gistId);
@@ -261,7 +278,7 @@ document.getElementById('save').addEventListener('click', savegist );
 
 
 
-if(urlParams.get('id')){
+if(CodeId){
   document.getElementById('update').style.display = 'inline-block';
   document.getElementById('save').style.display = 'none';
 } else {
