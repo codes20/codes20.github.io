@@ -5,6 +5,7 @@
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css"/>
+  <link rel="icon" href="logo.png"/>
 </head>
 <body>
   
@@ -22,16 +23,15 @@
         <a href="#" id="runbtn" ><ion-icon name="logo-google-playstore"></ion-icon> RUN </a>
         <a href="#" id="save" style="display:none;"><ion-icon name="cloud-upload-outline"></ion-icon> SAVE </a>
         <a href="#" id="update"><ion-icon name="cloud-upload-outline"></ion-icon> UPDATE </a>
-        <a href="#" ><ion-icon name="code-slash-outline"></ion-icon> Embed </a>
-        <a href="user.html" >Acccount</a>
-        <a href="#">Contact</a>
+        <a href="#" ><ion-icon name="code-slash-outline"></ion-icon> EMBED </a>
+        <a href="user.html" > ACCOUNT </a>
+        <a style="color:skyblue;" href="#" onclick="localStorage.clear();location.reload();"><ion-icon name="aperture-outline"></ion-icon> RESET </a>
       </nav>
 
     </div>
 
   </header>
 
-  </header>
 <div class="flex">
   <div id="editor" style="width: 50%; height: 90vh;"></div>
   <div id="previewer" style="width: 50%; height: 90vh;">

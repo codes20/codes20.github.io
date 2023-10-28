@@ -7,11 +7,13 @@
   background : transparent;
   font: normal 28px Cookie, Arial, Helvetica, sans-serif;
   border:0;
-  padding:2px;
+  padding:8px;
   color:white;
   width:400px;
   resize: both;
   overflow: auto;
+  outline-color:hotpink;
+  border-radius:100px;
 }
 #previewer {
   resize: both;

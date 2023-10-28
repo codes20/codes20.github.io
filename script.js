@@ -1,5 +1,14 @@
 const urlParams = new URLSearchParams(window.location.search);
-
+function getParameterByName( name ){
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if( results == null )
+    return "";
+  else
+    return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 let editor,code;
   require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs' }});
 
@@ -255,4 +264,7 @@ document.getElementById('save').addEventListener('click', savegist );
 if(urlParams.get('id')){
   document.getElementById('update').style.display = 'inline-block';
   document.getElementById('save').style.display = 'none';
+} else {
+  document.getElementById('update').style.display = 'none';
+  document.getElementById('save').style.display = 'inline-block';
 }
