@@ -1,4 +1,6 @@
-  let editor,code;
+const urlParams = new URLSearchParams(window.location.search);
+
+let editor,code;
   require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs' }});
 
   require(["vs/editor/editor.main"], function() {
@@ -44,36 +46,147 @@
     console.log(code);
   });
 
-  let save = () => {
+function getGistData(gistId) {
+  // GitHub API endpoint for retrieving a specific Gist by ID
+  const apiUrl = `https://api.github.com/gists/${gistId}`;
 
-  }
+  // Set up the fetch request
+  return fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+          if (data.id) {
+              // Extract the description
+              const description = data.description;
+
+              // Extract the content of index.html
+              const indexHtmlContent = data.files['index.html'].content;
+
+              // Extract the content of all files
+              const allFilesContent = {};
+              for (const fileName in data.files) {
+                  allFilesContent[fileName] = data.files[fileName].content;
+              }
+
+              // Return all the information in an object
+              const gistInfo = {
+                  description: description,
+                  indexHtmlContent: indexHtmlContent,
+                  allFilesContent: allFilesContent,
+                  gistJson: data
+              };
+
+              return gistInfo;
+          } else {
+              // Gist with the provided ID does not exist
+              throw new Error('Gist not found.');
+          }
+      })
+      .catch(error => {
+          // Handle errors
+          console.error('An error occurred:', error);
+          return null;
+      });
+}
+
 
 
 // Get the value of the "id" parameter from the URL
-const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
+console.log(id);
 if(id){
-  // Replace the contents of the editor with the contents of the file with the given ID
-  fetch(`get.php?id=${id}`)
-    .then(response => response.text())
-    .then(data => {
-      editor.setValue(data);
-    });
+  getGistData(id)
+  .then(gistInfo => {
+      if (gistInfo) {
+          //console.log('Description:', gistInfo.description);
+          //console.log('Content of index.html:', gistInfo.indexHtmlContent);
+          //console.log('Content of all files:', gistInfo.allFilesContent);
+          //console.log('Gist JSON:', gistInfo.gistJson);
+        document.title = gistInfo.description;
+        document.getElementById('title').value = gistInfo.description;
+        editor.setValue(gistInfo.indexHtmlContent);
+        
+      } else {
+          console.log('Unable to retrieve Gist information.');
+      }
+  });
 }
                                  
 
 
 
-//--------------------
+//--------------------ghp_Psc3jiNSR0--uxcM2SCkQsO0C--Mr5gXOo1rbRIz
 
-// Replace with your GitHub Personal Access Token
-let accessToken = 'ghp_BaESolgh0Vupka'
-    accessToken += 'JpGC6EDKwtxeQfqH2JsK4D';
-console.log(accessToken);
+let accessToken;
+
+let refreshToken = () => {
+if(localStorage.accessToken){
+  accessToken = localStorage.accessToken;
+} else {
+  localStorage.accessToken = prompt("Enter Your GitHub Access Token :- \n We will not save it", "ForSavingGists");
+  accessToken = localStorage.accessToken ;
+}
+  
+}
 
 
-document.getElementById('save').addEventListener('click', () => {
-    // Gist data
+let savegist = () => 
+    {
+      refreshToken();
+      // Gist data
+      const gistData = {
+          description: document.getElementById('title').value || 'Codes20 Gist',
+          public: true, // Set to true for public, false for private
+          files: {
+              'index.html': {
+                  content: editor.getValue()
+              },
+              'codes20.txt': {
+                  content: '...'
+              },
+              'poster.png': {
+                  content: '...'
+              }
+          }
+      };
+
+      // GitHub API endpoint for creating Gists
+      const apiUrl = 'https://api.github.com/gists';
+
+      // Set up the fetch request
+      fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+              'Authorization': `token ${accessToken}`,
+              'User-Agent': 'Codes20', // Replace with your app name
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(gistData)
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.id) {
+              // Gist created successfully
+              const gistId = data.id;
+              const gistUrl = data.html_url;
+              console.log(`Gist created successfully. Gist ID: ${gistId}, Gist URL: ${gistUrl}`);
+
+              // Open the Gist URL in a new window
+              window.open(gistUrl, '_blank');
+              window.open('https://codes20githubio.sh20raj.repl.co/?id='+gistId, '_blank');
+          } else {
+              // Failed to create Gist
+              console.error('Failed to create Gist.');
+              console.log(data);
+          }
+      })
+      .catch(error => {
+          console.error('An error occurred:', error);
+      });
+  }
+
+let updategist = (gistId) => {
+  refreshToken();
+    // Gist data for updating
     const gistData = {
         description: document.getElementById('title').value || 'Codes20 Gist',
         public: true, // Set to true for public, false for private
@@ -90,12 +203,12 @@ document.getElementById('save').addEventListener('click', () => {
         }
     };
 
-    // GitHub API endpoint for creating Gists
-    const apiUrl = 'https://api.github.com/gists';
+    // GitHub API endpoint for updating a Gist by ID
+    const apiUrl = `https://api.github.com/gists/${gistId}`;
 
     // Set up the fetch request
     fetch(apiUrl, {
-        method: 'POST',
+        method: 'PATCH', // Use PATCH to update an existing Gist
         headers: {
             'Authorization': `token ${accessToken}`,
             'User-Agent': 'Codes20', // Replace with your app name
@@ -106,21 +219,40 @@ document.getElementById('save').addEventListener('click', () => {
     .then(response => response.json())
     .then(data => {
         if (data.id) {
-            // Gist created successfully
-            const gistId = data.id;
+            // Gist updated successfully
+            const updatedGistId = data.id;
             const gistUrl = data.html_url;
-            console.log(`Gist created successfully. Gist ID: ${gistId}, Gist URL: ${gistUrl}`);
-            
-            // Open the Gist URL in a new window
+            console.log(`Gist updated successfully. Gist ID: ${updatedGistId}, Gist URL: ${gistUrl}`);
+
+            // Open the updated Gist URL in a new window
             window.open(gistUrl, '_blank');
-            window.open('https://codes20githubio.sh20raj.repl.co/?id='+gistId, '_blank');
         } else {
-            // Failed to create Gist
-            console.error('Failed to create Gist.');
+            // Failed to update Gist
+            console.error('Failed to update Gist.');
             console.log(data);
         }
     })
     .catch(error => {
         console.error('An error occurred:', error);
     });
+}
+
+document.getElementById('update').addEventListener('click', () => {
+    // Get the gist ID from the URL parameter (you need to implement this)
+    const gistId = urlParams.get('id');
+
+    if (gistId) {
+        updategist(gistId);
+    } else {
+        console.error('No Gist ID found in the URL parameter.');
+    }
 });
+
+document.getElementById('save').addEventListener('click', savegist );
+
+
+
+if(urlParams.get('id')){
+  document.getElementById('update').style.display = 'inline-block';
+  document.getElementById('save').style.display = 'none';
+}

@@ -10,9 +10,20 @@
   padding:2px;
   color:white;
   width:400px;
+  resize: both;
+  overflow: auto;
+}
+#previewer {
+  resize: both;
+  overflow: auto;
+}
+#editor {
+  resize: both;
+  overflow: auto;
 }
 .flex {
   display:flex;
+  
 }
 
 .header-fixed {

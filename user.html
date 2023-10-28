@@ -34,12 +34,26 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="my-4">---SH20RAJ---</h1>
+        <h1 class="my-4">---SH20RAJ---</h1> <a href="../" class="btn btn-primary">../Home</a>
         <div class="row" id="gistList"></div>
     </div>
 
     <script>
-        const username = 'sh20raj'; // Replace with the GitHub username
+        // username = 'sh20raj'; // Replace with the GitHub username
+
+      let username;
+
+      let refreshUsername = () => {
+      if(localStorage.username){
+        username = localStorage.username;
+      } else {
+        localStorage.username = prompt("Enter Your GitHub Username :- \n ", "ForGettingGists i.e. SH20RAJ");
+        username = localStorage.username ;
+      }
+
+      }
+      refreshUsername();
+      
         const apiUrl = `https://api.github.com/users/${username}/gists`;
 
         function fetchGistsWithCodes20() {
@@ -72,7 +86,8 @@
                                 <h5 class="card-title">${description}</h5>
                                 <p class="card-text">Updated ${date}</p>
                                 <p class="card-text">GitHub Username: ${username}</p>
-                                <a href="https://codes20githubio.sh20raj.repl.co/?id=${gist.id}" class="btn btn-primary">Read more</a>
+                                <a href="https://codes20githubio.sh20raj.repl.co/?id=${gist.id}" class="btn btn-primary">Open Code .</a>
+                                <a target="_" href="https://gist.github.com/${gist.id}" class="btn btn-success">Open GIST</a>
                             </div>
                         </div>
                     </div>
