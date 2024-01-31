@@ -1,5 +1,21 @@
-# codes20.github.io
-Codes20
+# Codepen Alternative - Codes20
 
-https://replit.com/@SH20RAJ/codes20githubio || https://github.com/codes20/codes20.github.io
-https://codes20githubio.sh20raj.repl.co/ || https://codes20.github.io/
+---
+
+Site :- https://codes20.github.io/
+
+---
+
+
+Features
+- Save to your Gists
+- Edit Codes and View Result
+- VS Code Editor
+- Save Codes direct to GitHub Gists
+- Easy UI
+- Open Source (https://github.com/codes20/codes20.github.io) 
+- Upgradable || Contributable 
+
+---
+
+{% github https://github.com/codes20/codes20.github.io %}
