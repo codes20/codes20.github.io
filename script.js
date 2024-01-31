@@ -10,22 +10,23 @@ function getParameterByName( name ){
     return decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 function extractIdFromUrl(url) {
-    // Regular expression to match the ID pattern
-    const idPattern = /[?&]id=([a-fA-F0-9]+)|\/([a-fA-F0-9]+)/;
-
-    // Use the regular expression to search for the ID in the URL
-    const match = url.match(idPattern);
-
+    // Define the pattern to match the ID in the URL
+    var pattern = /\/([a-f0-9]{32})$/;
+  
+    // Use the match method to find the match in the URL
+    var match = url.match(pattern);
+  
     // Check if a match is found
-    if (match && match.length > 1) {
-        const id = match[1] || match[2];
-        return id;
+    if (match) {
+      // Extract and return the ID
+      return match[1];
+    } else {
+      // Return null if no match is found
+      return null;
     }
-
-    // Return null if no match is found
-    return null;
-}
-let CodeId = getParameterByName("id");
+  }
+  
+let CodeId = getParameterByName("id") || extractIdFromUrl(window.location.href) ;
 let editor,code;
   require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs' }});
 
@@ -198,7 +199,7 @@ let savegist = () =>
 
               // Open the Gist URL in a new window
               window.open(gistUrl, '_blank');
-              window.open(location.origin+'/?id='+gistId, '_blank');
+              window.open(location.origin+'/'+gistId, '_blank');
           } else {
               // Failed to create Gist
               console.error('Failed to create Gist.');
