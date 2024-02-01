@@ -167,8 +167,8 @@ let savegist = () =>
               'index.html': {
                   content: editor.getValue()
               },
-              'codes20.txt': {
-                  content: '...'
+              'codes20.md': {
+                  content: 'Codes20 :- https://codes20.github.io./'
               },
               'poster.png': {
                   content: '...'
@@ -221,8 +221,8 @@ let updategist = (gistId) => {
             'index.html': {
                 content: editor.getValue()
             },
-            'codes20.txt': {
-                content: '...'
+            'codes20.md': {
+                content: 'Codes20 :- https://codes20.github.io./'
             },
             'poster.png': {
                 content: '...'
