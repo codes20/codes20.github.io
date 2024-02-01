@@ -222,7 +222,7 @@ let updategist = (gistId) => {
                 content: editor.getValue()
             },
             'codes20.md': {
-                content: 'Codes20 :- https://codes20.github.io./'
+                content: 'Codes20 :- https://codes20.github.io./' + gistId
             },
             'poster.png': {
                 content: '...'
