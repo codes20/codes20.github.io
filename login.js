@@ -42,7 +42,7 @@
 
           const data = await response.json();
           const accessToken = data.access_token;
-          localStorage.accessToken = accessToken;
+          localStorage.accessToken =(accessToken!=undefined)? accessToken:false;
 
           // You now have the access token, you can send it to your server or perform other actions
           console.log("GitHub Access Token:", accessToken);
@@ -103,4 +103,5 @@
         if(localStorage.accessToken && !undefined) {
           document.getElementById("login-button").href = "./user.html";
           document.getElementById("login-button").innerHTML = "ACCOUNT";
+          location.search = "";
         }
