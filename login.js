@@ -14,11 +14,11 @@
         // Redirect the user to the GitHub OAuth login page
         window.location.href = authUrl;
       }
-      const urlParams = new URLSearchParams(window.location.search);
+      const urlparams = new URLSearchParams(window.location.search);
 
       // Check if there is an access token in the URL (returned from GitHub OAuth)
       function getGitHubAccessToken() {
-        return urlParams.get("access_token");
+        return urlparams.get("access_token");
       }
 
       // Function to exchange authorization code for access token
@@ -100,8 +100,8 @@
         }
       }
       const authorizationCode = getGitHubAccessToken();
-      if (urlParams.get("code")) {
-        exchangeCodeForToken(urlParams.get("code"));
+      if (urlparams.get("code")) {
+        exchangeCodeForToken(urlparams.get("code"));
       }
       // Example usage
       document
