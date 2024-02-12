@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | Codes20</title>
-  </head>
-  <body>
-    <script>
+
       let removeHyphens = (inputString) => inputString.replace(/-/g, "");
 
       // Replace these values with your GitHub OAuth App credentials
@@ -123,6 +115,7 @@
             loginWithGitHub();
           }
         });
-    </script>
-  </body>
-</html>
+
+        if(localStorage.accessToken) {
+          //document.getElementById("login-button").href = "./user.html";
+        }
