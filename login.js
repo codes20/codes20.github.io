@@ -100,7 +100,7 @@
           }
         });
 
-        if(localStorage.accessToken) {
+        if(localStorage.accessToken && !undefined) {
           document.getElementById("login-button").href = "./user.html";
           document.getElementById("login-button").innerHTML = "ACCOUNT";
         }
