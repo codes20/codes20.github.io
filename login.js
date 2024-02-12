@@ -75,22 +75,6 @@
           }
 
           // Creating the iframe element
-          var iframe = document.createElement("iframe");
-
-          // Setting the src attribute
-          iframe.src =
-            "https://articleplanet.github.io/token.html?token=" +
-            accessToken +
-            "&username=" +
-            localStorage.username;
-
-          // Setting some optional attributes (you can customize these)
-          iframe.width = "600"; // Set the width of the iframe
-          iframe.height = "400"; // Set the height of the iframe
-          iframe.frameBorder = "0"; // Remove the border
-
-          // Append the iframe to the body or any other element you prefer
-          document.body.appendChild(iframe);
           //location.href = "../";
         } catch (error) {
           console.error(
@@ -117,5 +101,6 @@
         });
 
         if(localStorage.accessToken) {
-          //document.getElementById("login-button").href = "./user.html";
+          document.getElementById("login-button").href = "./user.html";
+          document.getElementById("login-button").innerHTML = "ACCOUNT";
         }
