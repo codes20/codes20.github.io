@@ -286,3 +286,12 @@ if(CodeId){
   document.getElementById('update').style.display = 'none';
   document.getElementById('save').style.display = 'inline-block';
 }
+
+// Embed JS
+
+let embed = document.getElementById('embed');
+
+embed.addEventListener("click", () => {
+
+    prompt('Copy the iframe CODE','<iframe width="560" height="315" src="'+ location.href +'" title="Codes20 code player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>')
+})
