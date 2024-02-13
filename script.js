@@ -295,3 +295,4 @@ embed.addEventListener("click", () => {
 
     prompt('Copy the iframe CODE','<iframe width="560" height="315" src="'+ location.href +'?embed=true" title="Codes20 code player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>')
 })
+(getParameterByName(embed)) ?document.querySelector('nav').style.display = "hidden":null;
