@@ -36,7 +36,7 @@ let editor,code;
         '<!DOCTYPE html>',
         '<html>',
         '  <head>',
-        '    <title>C Editor</title>',  
+        '    <title>Code Editor</title>',  
         '  </head>',
         '<style>',
         '',
@@ -84,6 +84,7 @@ function getGistData(gistId) {
           if (data.id) {
               // Extract the description
               const description = data.description;
+              document.title - description ;
 
               // Extract the content of index.html
               const indexHtmlContent = data.files['index.html'].content;
