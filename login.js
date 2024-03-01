@@ -2,7 +2,9 @@
       let removeHyphens = (inputString) => inputString.replace(/-/g, "");
 
       // Replace these values with your GitHub OAuth App credentials
-      const clientIdWithHyphens = "660-0b070-3dae-a69-caacc";
+      // const clientIdWithHyphens = "660-0b070-3dae-a69-caacc";
+      const clientIdWithHyphens = "5955889c-b9c61c-4ad72e";
+
       const clientId = removeHyphens(clientIdWithHyphens);
       const redirectUri = "https://codes20.github.io/";
       const scope = "user,gist,repo";
@@ -25,7 +27,8 @@
       async function exchangeCodeForToken(authorizationCode) {
         try {
           const response = await fetch(
-            "https://login-codes20.vercel.app/",
+            "https://login-articleplanet2.vercel.app/",
+            // "https://login-codes20.vercel.app/",
             {
               method: "POST",
               headers: {
