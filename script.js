@@ -11,6 +11,8 @@ function getParameterByName(name) {
     }
 
 }
+
+
 function extractIdFromUrl(url) {
     // Define the pattern to match the ID in the URL
     var pattern = /\/([a-f0-9]{32})$/;
@@ -301,6 +303,7 @@ embed.addEventListener("click", () => {
 (getParameterByName(embed)) ?document.querySelector('nav').style.display = "none":null;
 
 
+let getParameterByName = name => decodeURIComponent((new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)).exec(window.location.href)[2] || '');
 
 if(getParameterByName("prefill")){
 editor.setValue(getParameterByName("prefill"));
