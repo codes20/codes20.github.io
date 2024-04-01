@@ -308,3 +308,9 @@ let getParameterByName = name => decodeURIComponent((new RegExp(`[?&]${name}(=([
 if(getParameterByName("prefill")){
 editor.setValue(getParameterByName("prefill"));
 }
+window.onload = function() {
+  if (getParameterByName("prefill")) {
+    editor.setValue(getParameterByName("prefill"));
+  }
+};
+
