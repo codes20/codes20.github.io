@@ -1,13 +1,15 @@
 const urlParams = new URLSearchParams(window.location.search);
-function getParameterByName( name ){
-  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-  var regexS = "[\\?&]"+name+"=([^&#]*)";
-  var regex = new RegExp( regexS );
-  var results = regex.exec( window.location.href );
-  if( results == null )
-    return "";
-  else
-    return decodeURIComponent(results[1].replace(/\+/g, " "));
+function getParameterByName(name) {
+    if (name !== "" && name !== null && name != undefined) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    } else {
+        var arr = location.href.split("/");
+        return arr[arr.length - 1];
+    }
+
 }
 function extractIdFromUrl(url) {
     // Define the pattern to match the ID in the URL
