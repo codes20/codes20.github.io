@@ -1,6 +1,9 @@
 const urlParams = new URLSearchParams(window.location.search);
-let getParameterByName = name => decodeURIComponent((new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)).exec(window.location.href)[2] || '');
-
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  let searchParams = new URLSearchParams(new URL(url).search);
+  return searchParams.get(name);
+}
 
 
 function extractIdFromUrl(url) {
