@@ -1,16 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
-function getParameterByName(name) {
-    if (name !== "" && name !== null && name != undefined) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-            results = regex.exec(location.search);
-        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    } else {
-        var arr = location.href.split("/");
-        return arr[arr.length - 1];
-    }
+let getParameterByName = name => decodeURIComponent((new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)).exec(window.location.href)[2] || '');
 
-}
 
 
 function extractIdFromUrl(url) {
@@ -303,7 +293,6 @@ embed.addEventListener("click", () => {
 (getParameterByName(embed)) ?document.querySelector('nav').style.display = "none":null;
 
 
-let getParameterByName = name => decodeURIComponent((new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)).exec(window.location.href)[2] || '');
 
 if(getParameterByName("prefill")){
 editor.setValue(getParameterByName("prefill"));
